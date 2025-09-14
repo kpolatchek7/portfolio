@@ -13,5 +13,4 @@ throughout the EVR 628 course.
 ## Author
 
 Katherine Polatchek
-Masters of Professional Science Student at Rosenstiel School of Marine, 
-Atmospheric, and Earth Science
+
