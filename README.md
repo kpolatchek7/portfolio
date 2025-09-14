@@ -2,7 +2,8 @@
 
 ## Description
 
-Analysis of environmental data for EVR 628 course portfolio
+This data science portfolio will showcase the coding skills I develop
+throughout the EVR 628 course.
 
 ## Project structure
 
@@ -12,3 +13,5 @@ Analysis of environmental data for EVR 628 course portfolio
 ## Author
 
 Katherine Polatchek
+Masters of Professional Science Student at Rosenstiel School of Marine, 
+Atmospheric, and Earth Science
