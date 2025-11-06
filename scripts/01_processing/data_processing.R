@@ -15,6 +15,7 @@
 library(tidyverse)
 library(EVR628tools)
 library(janitor)
+library(tidyr)
 
 #Load data
 
@@ -48,6 +49,20 @@ number_sharks_caught <- number_sharks_caught |>
          Shortfin_mako = SMAn,
          Hammerhead = SPNn,
          Thresher = THRn)
+
+number_sharks_caught <- number_sharks_caught |>
+  rename(Other = Miscellaneous_species)
+
+#Create a new column with species names
+
+number_sharks_caught_long <- number_sharks_caught |>
+  pivot_longer(cols = -c(Year, Month, Flag, Latitude, Longitude, Hooks),
+               names_to = "species", values_to = "count") |>
+  select(Year, Month, Flag, species, count) |>
+  filter(count > 0) |>
+  group_by(Year, Flag, species) |>
+  summarise(count = sum(count))
+
 
 #Save processed data
 
