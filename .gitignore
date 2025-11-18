@@ -48,4 +48,7 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
+# Ignore specific files
+data/raw/World_EEZ_v12_20231025.zip
+data/raw/World_EEZ_v12_20231025/
 
