@@ -66,5 +66,5 @@ ggsave(filename = "results/img/catch_by_year_and_country.pdf", p1, width = 10,
 ggsave(filename = "results/img/species_distribution_by_country.pdf", p2,
        width = 10, height = 5, dpi = 300)
 
-ggsave(filename = "results/img/combined_plot.pdf", p3, width = 10, height = 8,
+ggsave(filename = "results/img/combined_plot.png", p3, width = 10, height = 8,
        dpi = 300)
