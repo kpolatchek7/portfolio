@@ -8,6 +8,7 @@ format:
     echo: true
     incremental: true
     bibliography: bibliography.bib
+    fontsize: "22pt"
 ---
 
 ## Introduction and Objective
@@ -79,6 +80,9 @@ number_sharks_caught_long <- number_sharks_caught |>
 
 ![](results/img/combined_plot.png)
 
+
+## Code
+
 ```{r}
 #| code-fold: true
 # Load libraries
@@ -121,14 +125,17 @@ p2 <- ggplot(data = number_sharks_caught_long,
     legend.key.size = unit(0.5, "cm"))
 
 # Create a two panel figure using patchwork package
-
 p3 <- p1 / p2
 
 ```
 
 ## Main Findings
 
-![](results/img/shark_fishing_effort_EPO_1.png){width=60%}
+![](results/img/shark_fishing_effort_EPO_1.png){width=65%}
+
+- Red lines represent Exclusive Economic Zones (200 nautical miles)
+
+## Code
 
 ```{r}
 #| code-fold: true
@@ -157,12 +164,6 @@ effort_raster <- sharks_caught_clean |>
   group_by(Longitude, Latitude) |>
   summarise(effort = sum(Hooks)) |> #Used number of hooks as estimate of fishing effort because no data on soak time
   rast(crs = "EPSG:4326") # Define coordinate system
-
-# Print raster to console
-effort_raster
-
-# Quick plot
-plot(effort_raster)
 
 # Crop EEZ vector to extent of fishing effort raster
 EEZ_vect <- vect(EEZ)            # convert sf → SpatVector
