@@ -114,7 +114,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="Shark_longline_fishing_effort_EPO_files/libs/revealjs/dist/theme/quarto-2f366650f320edcfcf53d73c80250a32.css">
+  <link rel="stylesheet" href="Shark_longline_fishing_effort_EPO_files/libs/revealjs/dist/theme/quarto-f410b222d0eb9b6c2196aa6c8a67363f.css">
   <link href="Shark_longline_fishing_effort_EPO_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="Shark_longline_fishing_effort_EPO_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="Shark_longline_fishing_effort_EPO_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -301,7 +301,10 @@ Katherine Polatchek
 <section id="main-findings-1" class="slide level2">
 <h2>Main Findings</h2>
 
-<img data-src="results/img/combined_plot.png" class="r-stretch"><div class="cell">
+<img data-src="results/img/combined_plot.png" class="r-stretch"></section>
+<section id="code" class="slide level2">
+<h2>Code</h2>
+<div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Load libraries</span></span>
@@ -344,14 +347,19 @@ Katherine Polatchek
 <span id="cb2-38"><a href=""></a>    <span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.5</span>, <span class="st">"cm"</span>))</span>
 <span id="cb2-39"><a href=""></a></span>
 <span id="cb2-40"><a href=""></a><span class="co"># Create a two panel figure using patchwork package</span></span>
-<span id="cb2-41"><a href=""></a></span>
-<span id="cb2-42"><a href=""></a>p3 <span class="ot">&lt;-</span> p1 <span class="sc">/</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-41"><a href=""></a>p3 <span class="ot">&lt;-</span> p1 <span class="sc">/</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="main-findings-2" class="slide level2">
 <h2>Main Findings</h2>
-<p><img data-src="results/img/shark_fishing_effort_EPO_1.png" style="width:60.0%"></p>
+
+<img data-src="results/img/shark_fishing_effort_EPO_1.png" style="width:65.0%" class="r-stretch"><ul>
+<li class="fragment">Red lines represent Exclusive Economic Zones (200 nautical miles)</li>
+</ul>
+</section>
+<section id="code-1" class="slide level2">
+<h2>Code</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -381,75 +389,47 @@ Katherine Polatchek
 <span id="cb3-24"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">effort =</span> <span class="fu">sum</span>(Hooks)) <span class="sc">|&gt;</span> <span class="co">#Used number of hooks as estimate of fishing effort because no data on soak time</span></span>
 <span id="cb3-25"><a href=""></a>  <span class="fu">rast</span>(<span class="at">crs =</span> <span class="st">"EPSG:4326"</span>) <span class="co"># Define coordinate system</span></span>
 <span id="cb3-26"><a href=""></a></span>
-<span id="cb3-27"><a href=""></a><span class="co"># Print raster to console</span></span>
-<span id="cb3-28"><a href=""></a>effort_raster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>class       : SpatRaster 
-size        : 18, 16, 1  (nrow, ncol, nlyr)
-resolution  : 5, 5  (x, y)
-extent      : -150, -70, -45, 45  (xmin, xmax, ymin, ymax)
-coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-source(s)   : memory
-name        :    effort 
-min value   :      2200 
-max value   : 153451207 </code></pre>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Quick plot</span></span>
-<span id="cb5-2"><a href=""></a><span class="fu">plot</span>(effort_raster)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="Shark_longline_fishing_effort_EPO_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Crop EEZ vector to extent of fishing effort raster</span></span>
-<span id="cb6-2"><a href=""></a>EEZ_vect <span class="ot">&lt;-</span> <span class="fu">vect</span>(EEZ)            <span class="co"># convert sf → SpatVector</span></span>
-<span id="cb6-3"><a href=""></a>EEZ_unwrapped <span class="ot">&lt;-</span> <span class="fu">unwrap</span>(EEZ_vect)  <span class="co"># fix 0–360 / antimeridian</span></span>
-<span id="cb6-4"><a href=""></a>EEZ_fixed <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(EEZ_unwrapped)</span>
-<span id="cb6-5"><a href=""></a></span>
-<span id="cb6-6"><a href=""></a>r_bb <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="fu">st_bbox</span>(effort_raster))</span>
-<span id="cb6-7"><a href=""></a>EEZ_crop <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(EEZ_fixed, r_bb) <span class="co"># crop EEZ vector to bounds of fishing effort raster</span></span>
-<span id="cb6-8"><a href=""></a></span>
-<span id="cb6-9"><a href=""></a><span class="co"># Crop depth raster to extent of fishing effort raster</span></span>
-<span id="cb6-10"><a href=""></a>EPO_depth <span class="ot">&lt;-</span> <span class="fu">crop</span>(depth, r_bb)</span>
-<span id="cb6-11"><a href=""></a></span>
-<span id="cb6-12"><a href=""></a><span class="co"># Crop coastline vector to extent of fishing effort raster</span></span>
-<span id="cb6-13"><a href=""></a>sf<span class="sc">::</span><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
-<span id="cb6-14"><a href=""></a>coast_crop <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(coast, r_bb)</span>
-<span id="cb6-15"><a href=""></a></span>
-<span id="cb6-16"><a href=""></a><span class="co"># VISUALIZE ####################################################################</span></span>
-<span id="cb6-17"><a href=""></a></span>
-<span id="cb6-18"><a href=""></a><span class="do">## Build plot ----------------------------------------------------------------</span></span>
-<span id="cb6-19"><a href=""></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb6-20"><a href=""></a>  <span class="fu">geom_spatraster_contour</span>(<span class="at">data=</span> EPO_depth, <span class="co"># Plot depth raster using contours</span></span>
-<span id="cb6-21"><a href=""></a>                          <span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">after_stat</span>(level)),</span>
-<span id="cb6-22"><a href=""></a>                          <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb6-23"><a href=""></a>  <span class="fu">geom_spatraster</span>(<span class="at">data=</span> effort_raster, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="co"># Plot fishing effort raster</span></span>
-<span id="cb6-24"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> EEZ_crop, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># Plot EEZ vector</span></span>
-<span id="cb6-25"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> coast_crop,</span>
-<span id="cb6-26"><a href=""></a>          <span class="at">fill =</span> <span class="st">"gray"</span>,</span>
-<span id="cb6-27"><a href=""></a>          <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="co"># Plot coastline vector</span></span>
-<span id="cb6-28"><a href=""></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">na.value =</span> <span class="st">"transparent"</span>) <span class="sc">+</span> <span class="co"># Make NA value transparent for effort raster</span></span>
-<span id="cb6-29"><a href=""></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"mako"</span>) <span class="sc">+</span> <span class="co"># Scale for aesthetics</span></span>
-<span id="cb6-30"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Modify theme</span></span>
-<span id="cb6-31"><a href=""></a>  <span class="fu">theme</span>(</span>
-<span id="cb6-32"><a href=""></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
-<span id="cb6-33"><a href=""></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
-<span id="cb6-34"><a href=""></a>  <span class="fu">annotation_north_arrow</span>(<span class="at">location =</span> <span class="st">"tl"</span>) <span class="sc">+</span> <span class="co"># Add north arrow</span></span>
-<span id="cb6-35"><a href=""></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>) <span class="sc">+</span> <span class="co"># Add scale bar</span></span>
-<span id="cb6-36"><a href=""></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Depth (m)"</span>,</span>
-<span id="cb6-37"><a href=""></a>       <span class="at">fill =</span> <span class="st">"Effort (Number of Hooks)"</span>,</span>
-<span id="cb6-38"><a href=""></a>       <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
-<span id="cb6-39"><a href=""></a>       <span class="at">y =</span> <span class="st">"Latitude"</span>,</span>
-<span id="cb6-40"><a href=""></a>       <span class="at">title =</span> <span class="st">"Shark longline fishing effort in the Eastern Pacific"</span>,</span>
-<span id="cb6-41"><a href=""></a>       <span class="at">caption =</span> <span class="st">"Data source: IATTC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-27"><a href=""></a><span class="co"># Crop EEZ vector to extent of fishing effort raster</span></span>
+<span id="cb3-28"><a href=""></a>EEZ_vect <span class="ot">&lt;-</span> <span class="fu">vect</span>(EEZ)            <span class="co"># convert sf → SpatVector</span></span>
+<span id="cb3-29"><a href=""></a>EEZ_unwrapped <span class="ot">&lt;-</span> <span class="fu">unwrap</span>(EEZ_vect)  <span class="co"># fix 0–360 / antimeridian</span></span>
+<span id="cb3-30"><a href=""></a>EEZ_fixed <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(EEZ_unwrapped)</span>
+<span id="cb3-31"><a href=""></a></span>
+<span id="cb3-32"><a href=""></a>r_bb <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(<span class="fu">st_bbox</span>(effort_raster))</span>
+<span id="cb3-33"><a href=""></a>EEZ_crop <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(EEZ_fixed, r_bb) <span class="co"># crop EEZ vector to bounds of fishing effort raster</span></span>
+<span id="cb3-34"><a href=""></a></span>
+<span id="cb3-35"><a href=""></a><span class="co"># Crop depth raster to extent of fishing effort raster</span></span>
+<span id="cb3-36"><a href=""></a>EPO_depth <span class="ot">&lt;-</span> <span class="fu">crop</span>(depth, r_bb)</span>
+<span id="cb3-37"><a href=""></a></span>
+<span id="cb3-38"><a href=""></a><span class="co"># Crop coastline vector to extent of fishing effort raster</span></span>
+<span id="cb3-39"><a href=""></a>sf<span class="sc">::</span><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb3-40"><a href=""></a>coast_crop <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(coast, r_bb)</span>
+<span id="cb3-41"><a href=""></a></span>
+<span id="cb3-42"><a href=""></a><span class="co"># VISUALIZE ####################################################################</span></span>
+<span id="cb3-43"><a href=""></a></span>
+<span id="cb3-44"><a href=""></a><span class="do">## Build plot ----------------------------------------------------------------</span></span>
+<span id="cb3-45"><a href=""></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-46"><a href=""></a>  <span class="fu">geom_spatraster_contour</span>(<span class="at">data=</span> EPO_depth, <span class="co"># Plot depth raster using contours</span></span>
+<span id="cb3-47"><a href=""></a>                          <span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">after_stat</span>(level)),</span>
+<span id="cb3-48"><a href=""></a>                          <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb3-49"><a href=""></a>  <span class="fu">geom_spatraster</span>(<span class="at">data=</span> effort_raster, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="co"># Plot fishing effort raster</span></span>
+<span id="cb3-50"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> EEZ_crop, <span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># Plot EEZ vector</span></span>
+<span id="cb3-51"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> coast_crop,</span>
+<span id="cb3-52"><a href=""></a>          <span class="at">fill =</span> <span class="st">"gray"</span>,</span>
+<span id="cb3-53"><a href=""></a>          <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> <span class="co"># Plot coastline vector</span></span>
+<span id="cb3-54"><a href=""></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">na.value =</span> <span class="st">"transparent"</span>) <span class="sc">+</span> <span class="co"># Make NA value transparent for effort raster</span></span>
+<span id="cb3-55"><a href=""></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">option =</span> <span class="st">"mako"</span>) <span class="sc">+</span> <span class="co"># Scale for aesthetics</span></span>
+<span id="cb3-56"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="co"># Modify theme</span></span>
+<span id="cb3-57"><a href=""></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-58"><a href=""></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb3-59"><a href=""></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>)) <span class="sc">+</span></span>
+<span id="cb3-60"><a href=""></a>  <span class="fu">annotation_north_arrow</span>(<span class="at">location =</span> <span class="st">"tl"</span>) <span class="sc">+</span> <span class="co"># Add north arrow</span></span>
+<span id="cb3-61"><a href=""></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>) <span class="sc">+</span> <span class="co"># Add scale bar</span></span>
+<span id="cb3-62"><a href=""></a>  <span class="fu">labs</span>(<span class="at">color =</span> <span class="st">"Depth (m)"</span>,</span>
+<span id="cb3-63"><a href=""></a>       <span class="at">fill =</span> <span class="st">"Effort (Number of Hooks)"</span>,</span>
+<span id="cb3-64"><a href=""></a>       <span class="at">x =</span> <span class="st">"Longitude"</span>,</span>
+<span id="cb3-65"><a href=""></a>       <span class="at">y =</span> <span class="st">"Latitude"</span>,</span>
+<span id="cb3-66"><a href=""></a>       <span class="at">title =</span> <span class="st">"Shark longline fishing effort in the Eastern Pacific"</span>,</span>
+<span id="cb3-67"><a href=""></a>       <span class="at">caption =</span> <span class="st">"Data source: IATTC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
